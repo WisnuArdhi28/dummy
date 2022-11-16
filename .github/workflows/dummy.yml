@@ -33,28 +33,24 @@ jobs:
          working-directory: tempdirectorysirbrowow
          run: |
               NAME_OF_THIS_REPO="dummy"
-              GITHUB_ORG_NAME="boxaltdump"
-              GITLAB_ORG_NAME="boxdumps"
-              GITLAB_USERNAME="boxaltdumps"
-              GITHUB_USERNAME="box-automation1"
-              GIT_CONFIG_USERNAME="Box In A Box"
-              GIT_CONFIG_EMAIL="evanferrao@gmail.com"
+              GITHUB_ORG_NAME="RealmemeGanjet"
+              GITHUB_USERNAME="WisnuArdhi28"
+              GIT_CONFIG_USERNAME="WisnuArdhi28"
+              GIT_CONFIG_EMAIL="wisnuardi128@gmail.com"
               GIT_GITHUB_TOKEN="${{ secrets.GIT_GITHUB_TOKEN }}"
-              GITLAB_TOKEN="${{ secrets.GITLAB_TOKEN }}"
               TG_BOT_TOKEN="${{ secrets.TG_BOT_TOKEN }}"
-              GITLAB_EMAIL="${{ secrets.GITLAB_EMAIL }}"
-              TG_CHAT_ID="@boxdumps"
+              TG_CHAT_ID="@gudang_dummper"
               GITLAB_HOSTNAME="gitgud.io" ## use 'gitlab.com' by default, or use your own github instance, or any public one
-              #echo "$GITLAB_ORG_NAME" > .orgname
+              echo "$GITHUB_ORG_NAME" > .orgname
               #echo "$GITLAB_HOSTNAME" > .gitlab_instance
-              #echo "$GIT_GITHUB_TOKEN" > .github_token
+              echo "$GIT_GITHUB_TOKEN" > .github_token
               #echo "$GITLAB_ORG_NAME" > .gitlab_orgname
               #echo "$GITLAB_USERNAME" > .gitlab_instance_username
-              #echo "$GITHUB_USERNAME" > .github_username
+              echo "$GITHUB_USERNAME" > .github_username
               #echo "$GITLAB_TOKEN" > .gitlab_token
-              #echo "$TG_BOT_TOKEN" > .tg_token
+              echo "$TG_BOT_TOKEN" > .tg_token
               #echo "$GITLAB_EMAIL" > .gitlab_email
-              #echo "$TG_CHAT_ID" > .chat_id
+              echo "$TG_CHAT_ID" > .chat_id
               aria2c -o .url https://raw.githubusercontent.com/${GITHUB_USERNAME}/${NAME_OF_THIS_REPO}/master/URL.txt
               aria2c -o .branch https://raw.githubusercontent.com/${GITHUB_USERNAME}/${NAME_OF_THIS_REPO}/master/BRANCH.txt
               aria2c -o .tg_message_id https://raw.githubusercontent.com/${GITHUB_USERNAME}/${NAME_OF_THIS_REPO}/master/CURRENT_CHAT_ID.txt
@@ -70,7 +66,7 @@ jobs:
               MESSAGE_ID=$(curl -X POST -H 'Content-Type: application/json' -d "{\"chat_id\": \"$TELEGRAM_CHAT_ID\", \"text\": \"Starting Dummy Tree Generation...\", \"disable_notification\": true}" https://api.telegram.org/bot$TG_BOT_TOKEN/sendMessage | grep -oP "(\"message_id\":)[0-9]+" | cut -d ":" -f 2)
               curl -X POST -H 'Content-Type: application/json' -d "{\"message_id\":$MESSAGE_ID, \"chat_id\": \"$TELEGRAM_CHAT_ID\", \"text\": \"Cloning Dump...\", \"disable_notification\": true}" https://api.telegram.org/bot$TG_BOT_TOKEN/editMessageText
               if [ "$BRANCH" == "" ]; then git clone --depth=1 --single-branch ${NEW_URL} rom_dump ; else git clone --depth=1 --single-branch ${NEW_URL} -b ${BRANCH} rom_dump ; fi
-              sudo bash tools/dummy_dt.sh rom_dump
+              bash tools/dummy_dt.sh rom_dump
               ls
        - name: Setup tmate session
          timeout-minutes: 340
